@@ -1,6 +1,6 @@
 // Assessment.java 
 
-package ct414;
+package server;
 
 import java.util.Date;
 import java.util.List;

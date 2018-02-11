@@ -1,4 +1,4 @@
-package ct414;
+package server;
 
 public class UnauthorizedAccess extends Exception {
 

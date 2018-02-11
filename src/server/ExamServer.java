@@ -1,6 +1,6 @@
 // ExamServer.java
 
-package ct414;
+package server;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
