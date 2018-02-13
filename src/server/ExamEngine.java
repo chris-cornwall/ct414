@@ -11,57 +11,93 @@ import server.Student;
 
 public class ExamEngine implements ExamServer {
     
-  private ArrayList<Integer> randArray = new ArrayList();
+    
+    private ArrayList<Integer> randArray = new ArrayList(); // Keep track of tokens already used ***TOKENS NEED TO EXPIRE***  
+    private ArrayList<Student> loggedIn = new ArrayList(); // Keep track of who's logged in
+    private ArrayList<Student> students = new ArrayList(); // Keep track of all students
 
     // Constructor is required
     public ExamEngine() {        
         super();
          
     }
+    
+    public void testSetup(){
+         //TODO: Change where we create student array
+        //Create Arrays of questions 
+        Question testQ = (Question) new AssignmentQuestion();
+        ArrayList<Question> Q1 = new ArrayList(); 
+        ArrayList<Question> Q2 = new ArrayList();
+        ArrayList<Question> Q3 = new ArrayList();     
+        Q1.add(testQ);
+        Q2.add(testQ);
+        Q2.add(testQ);
+        
+        //Create Assessments using these questions
+        Assessment A1 = new Assessment1(Q1);
+        Assessment A2 = new Assessment1(Q2);
+        Assessment A3 = new Assessment1(Q3);
+        
+        //Create ArrayLists of Assessments
+        ArrayList<Assessment> AL1 = new ArrayList();
+        AL1.add(A1);
+        ArrayList<Assessment> AL2 = new ArrayList();
+        AL2.add(A2);
+        ArrayList<Assessment> AL3 = new ArrayList();
+        AL3.add(A3);
+        
+        //ArrayList of Assessment summary.... Need to use for getAvailableSummary down below
+        ArrayList<String> summary = new ArrayList();
+        summary.add("Maths");
+        summary.add("English");
+        summary.add("drinking cans");
+        
+        //Create students, assign id, password and assessments
+        Student s1 = new Student(1, "pass1");
+        s1.setAssessments(AL1);
+        students.add(s1);
+        Student s2 = new Student(2, "pass2");
+        s2.setAssessments(AL2);
+        students.add(s2);
+        Student s3 = new Student(3, "pass3");
+        s3.setAssessments(AL3);
+        students.add(s3);
+        
+    }
 
     // Implement the methods defined in the ExamServer interface...
     // Return an access token that allows access to the server for some time period
-    public int login(int studentid, String password) throws 
-                UnauthorizedAccess, RemoteException {
-    	createToken();
-        createToken();
-        createToken();
-        createToken();
-        createToken();
-        createToken();
-        createToken();
-        createToken();
-        
-    	ArrayList<Student> students = new ArrayList();
-    	
-    	Student s1 = new Student(4, "pass1");
-    	students.add(s1);
-		Student s2 = new Student(5, "pass2");
-		students.add(s2);
-		Student s3 = new Student(6, "pass3");
-		students.add(s3);
-		
-		Student search = new Student(studentid, password);
+    public int login(int studentid, String password) throws
+            UnauthorizedAccess, RemoteException {
 
-                for (Student s : students){
-			
-			if(s.getUserName() == search.getUserName() && s.getPassWord().equals(search.getPassWord()))
-				return 0;
-			else{
-				throw new UnauthorizedAccess("Wrong");
-				
-			}
-		}
+        Student search = new Student(studentid, password);
 
-	// TBD: You need to implement this method!
-	// For the moment method just returns an empty or null value to allow it to compile
+        for (Student s : students) {
 
-	return 0;	
+            if (s.getID() == search.getID() && s.getPassWord().equals(search.getPassWord())) {
+                int token = createToken();
+                s.setToken(token);
+                loggedIn.add(s);
+                System.out.println("ID = " + s.getID()+ " Token = " + s.getToken());
+                return token;
+            } else {
+                throw new UnauthorizedAccess("Incorrect User ID or Password");
+
+            }
+        }
+
+        // TBD: You need to implement this method!
+        // For the moment method just returns an empty or null value to allow it to compile
+        return 0;
     }
 
 	// Return a summary list of Assessments currently available for this studentid
-    public List<String> getAvailableSummary(int token, int studentid) throws
+    public ArrayList<String> getAvailableSummary(int token, int studentid) throws
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
+        for(Student s: loggedIn){
+            if(s.getToken() == token && s.getID() == studentid)
+                return s.getAssessSummary();           
+        }
 
         // TBD: You need to implement this method!
         // For the moment method just returns an empty or null value to allow it to compile
@@ -86,11 +122,12 @@ public class ExamEngine implements ExamServer {
         // TBD: You need to implement this method!
     }
     
+    // Keep creating random tokens if token already exists
     public int createToken(){
 
         boolean isAdded = false;
-
-        int rand = (int) Math.random() * 100;
+        int rand = (int) (Math.random() * 100);
+        
         for (int i : randArray) {
             if (rand == i) {
                 isAdded = true;
@@ -101,9 +138,12 @@ public class ExamEngine implements ExamServer {
             randArray.add(rand);
         else 
             createToken(); 
-        
-        System.out.println("\n rand = " + rand);
+      
         return rand;
+    }
+    
+    public void assignToken(Student student, int token){
+        student.setToken(token);
     }
 
     public static void main(String[] args) {

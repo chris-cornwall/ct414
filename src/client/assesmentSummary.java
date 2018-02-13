@@ -7,18 +7,21 @@ import java.util.List;
 import javax.swing.*;    // Using Swing components and containers
 
 public class assesmentSummary extends JFrame{
+    private ArrayList<String> assessments = new ArrayList();
+    
 	//private JTextField asses1, asses2, asses3;
 	private JButton asses1, asses2, asses3;
 	//public List<String> questionList = new ArrayList<String>();
 	public String s1 = "What is the question?";
 	
-	public assesmentSummary(String userInfo) {
-		System.out.println(userInfo);
+	public assesmentSummary(String userInfo, ArrayList<String> assessments) {
+		System.out.println("UserInfo = " + userInfo);
+                this.assessments = assessments;
 		
 		Container ncp = getContentPane();
 	    ncp.setLayout(new GridLayout(3, 2, 5, 5));  // The content-pane sets its layout
 	    
-	    ncp.add(new JLabel("Assesment 1: "));
+	    ncp.add(new JLabel(assessments.get(0)));
 	    asses1 = new JButton("Select");
 	    ncp.add(asses1);
 	    
@@ -39,7 +42,7 @@ public class assesmentSummary extends JFrame{
 	          }
 	    });
 	    
-	    ncp.add(new JLabel("Assesment 2: "));
+	    ncp.add(new JLabel(assessments.get(1)));
 	    asses2 = new JButton("Select");
 	    ncp.add(asses2);
 	    
@@ -60,7 +63,7 @@ public class assesmentSummary extends JFrame{
 	          }
 	    });
 	    
-	    ncp.add(new JLabel("Assesment 3: "));
+	    ncp.add(new JLabel(assessments.get(2)));
 	    asses3 = new JButton("Select");
 	    ncp.add(asses3);
 	    
