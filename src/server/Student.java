@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 public class Student {
+
 	
 	private int userName,token;
 	private String passWord;
@@ -20,10 +21,10 @@ public class Student {
 		return;
 		
 	}
-	
-	public int getUserName(){
-		return userName;
-	}
+
+    public int getUserName() {
+        return userName;
+    }
 	
 	public String getPassWord(){
 		return passWord;

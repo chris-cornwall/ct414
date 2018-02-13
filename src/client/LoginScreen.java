@@ -61,7 +61,6 @@ private JTextField user, pass;
 	        	  		cp.setVisible(false);
 	        	  		dispose();
 	        	  		isVerified = false;
-        	  		
         	  	}
         	  
           }

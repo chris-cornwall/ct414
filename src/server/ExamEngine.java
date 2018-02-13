@@ -10,19 +10,28 @@ import java.util.List;
 import server.Student;
 
 public class ExamEngine implements ExamServer {
-	
-
+    
+  private ArrayList<Integer> randArray = new ArrayList();
 
     // Constructor is required
-    public ExamEngine() {
+    public ExamEngine() {        
         super();
+         
     }
 
     // Implement the methods defined in the ExamServer interface...
     // Return an access token that allows access to the server for some time period
     public int login(int studentid, String password) throws 
                 UnauthorizedAccess, RemoteException {
-    	
+    	createToken();
+        createToken();
+        createToken();
+        createToken();
+        createToken();
+        createToken();
+        createToken();
+        createToken();
+        
     	ArrayList<Student> students = new ArrayList();
     	
     	Student s1 = new Student(4, "pass1");
@@ -33,31 +42,16 @@ public class ExamEngine implements ExamServer {
 		students.add(s3);
 		
 		Student search = new Student(studentid, password);
-		
-		for (Student s : students){
-			/*
-			System.out.println(s.getUserName());
-			System.out.println(s.getPassWord());
-			System.out.println(search.getUserName());
-			System.out.println(search.getPassWord());
-			*/
+
+                for (Student s : students){
 			
 			if(s.getUserName() == search.getUserName() && s.getPassWord().equals(search.getPassWord()))
 				return 0;
 			else{
 				throw new UnauthorizedAccess("Wrong");
-				//return 1;
+				
 			}
 		}
-		
-			/*
-			if(s.getUserName(s) == search.getUserName(search) && s.getPassWord(s) == search.getPassWord(search))
-				return 0;
-			else{
-				//throw new UnauthorizedAccess("Wrong");
-				return 1;
-			}*/
-			
 
 	// TBD: You need to implement this method!
 	// For the moment method just returns an empty or null value to allow it to compile
@@ -90,6 +84,26 @@ public class ExamEngine implements ExamServer {
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
 
         // TBD: You need to implement this method!
+    }
+    
+    public int createToken(){
+
+        boolean isAdded = false;
+
+        int rand = (int) Math.random() * 100;
+        for (int i : randArray) {
+            if (rand == i) {
+                isAdded = true;
+            }
+        }
+        
+        if (!isAdded) 
+            randArray.add(rand);
+        else 
+            createToken(); 
+        
+        System.out.println("\n rand = " + rand);
+        return rand;
     }
 
     public static void main(String[] args) {
