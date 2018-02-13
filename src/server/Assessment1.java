@@ -5,6 +5,7 @@
  */
 package server;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,15 +14,17 @@ import java.util.List;
  * @author cornwall
  */
 public class Assessment1 implements Assessment {
-    public int number;
+    ArrayList<Question> questions = new ArrayList();
     
-    public Assessment1(int number){
-        this.number = number;      
+    
+    public Assessment1(ArrayList<Question> questions){
+        this.questions = questions;
+            
     }
 
     @Override
     public String getInformation() {
-        System.out.println("Here's your assessment");
+        //System.out.println("Here's your assessment");
         return "Assessment";
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
