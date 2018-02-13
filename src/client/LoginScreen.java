@@ -50,12 +50,7 @@ public class LoginScreen extends JFrame {
         	  		});
 	        	  		cp.setVisible(false);
 	        	  		dispose();
-<<<<<<< HEAD
-                                        isVerified = false;
-=======
 	        	  		isVerified = false;
->>>>>>> 308aaa85521bed6f65982fdfc65d20f949d77488
-        	  		
         	  	}
         	  
           }
