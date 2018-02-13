@@ -52,16 +52,9 @@ public class LoginScreen extends JFrame {
 
                 verifyUser(userInfo, passInfo);
                 if (isVerified == true) {
-                    try {
-                         assessList = (ArrayList<String>) ClientControl.server.getAvailableSummary(token, userID);
-                    } catch (UnauthorizedAccess ex) {
-                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (NoMatchingAssessment ex) {
-                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    /*
+//assessList = (ArrayList<String>) ClientControl.server.getAvailableSummary(token, userID);
+                    //System.out.println("AssessList contains" + assessList.get(0) + assessList.get(1) + assessList.get(2));
+                                        /*
         	  		try {
 						ClientControl.setToken(ClientControl.server.login(userInfo,passInfo));
 					} catch (RemoteException | UnauthorizedAccess e) {
@@ -97,6 +90,7 @@ public class LoginScreen extends JFrame {
             int verified = ClientControl.server.login(userID, pass);
              this.userID = userID;
              this.token = verified;
+             assessList = (ArrayList<String>) ClientControl.server.getAvailableSummary(verified, userID);
             
             // Check if int is returned...
             if (verified == (int)verified) {

@@ -41,11 +41,11 @@ public class Student {
         return assessments;
     }
 
-    public ArrayList<String> getAssessSummary() {
+    public ArrayList<String> getSummary() {
         return assessSummary;
     }
 
-    public void setAssessSummary(ArrayList<String> assessSummary) {
+    public void setSummary(ArrayList<String> assessSummary) {
         this.assessSummary = assessSummary;
     }
 

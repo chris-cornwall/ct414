@@ -19,7 +19,7 @@ public class ExamEngine implements ExamServer {
     // Constructor is required
     public ExamEngine() {        
         super();
-         
+        
     }
     
     public void testSetup(){
@@ -41,6 +41,8 @@ public class ExamEngine implements ExamServer {
         //Create ArrayLists of Assessments
         ArrayList<Assessment> AL1 = new ArrayList();
         AL1.add(A1);
+        AL1.add(A2);
+        AL1.add(A3);
         ArrayList<Assessment> AL2 = new ArrayList();
         AL2.add(A2);
         ArrayList<Assessment> AL3 = new ArrayList();
@@ -55,6 +57,7 @@ public class ExamEngine implements ExamServer {
         //Create students, assign id, password and assessments
         Student s1 = new Student(1, "pass1");
         s1.setAssessments(AL1);
+        s1.setSummary(summary);
         students.add(s1);
         Student s2 = new Student(2, "pass2");
         s2.setAssessments(AL2);
@@ -63,13 +66,15 @@ public class ExamEngine implements ExamServer {
         s3.setAssessments(AL3);
         students.add(s3);
         
+        System.out.println("Setup Complete!");
+        
     }
 
     // Implement the methods defined in the ExamServer interface...
     // Return an access token that allows access to the server for some time period
     public int login(int studentid, String password) throws
             UnauthorizedAccess, RemoteException {
-
+        testSetup();
         Student search = new Student(studentid, password);
 
         for (Student s : students) {
@@ -96,7 +101,10 @@ public class ExamEngine implements ExamServer {
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
         for(Student s: loggedIn){
             if(s.getToken() == token && s.getID() == studentid)
-                return s.getAssessSummary();           
+                System.out.println("LOOK BELOW");
+                for (int i=0; i<s.getSummary().size(); i++)
+                System.out.println(s.getSummary().get(i));
+               return s.getSummary();           
         }
 
         // TBD: You need to implement this method!
