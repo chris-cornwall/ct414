@@ -1,13 +1,17 @@
 package server;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class Student {
 
-	private int userName;
+	
+	private int userName,token;
 	private String passWord;
+	private ArrayList<Assessment> assessments = new ArrayList<Assessment>();
+	
+	
 	
 	
 	Student (int user, String pass){
@@ -26,4 +30,19 @@ public class Student {
 		return passWord;
 	}
 	
+	public int getToken(){
+		return token;
+	}
+	
+	public void setToken(int newToken){
+		this.token = newToken;
+	}
+	
+	public void setAssessments(ArrayList<Assessment> newAssessments){
+		this.assessments = newAssessments;
+	}
+	
+	public ArrayList<Assessment> getAssessments(){
+		return assessments;
+	}
 }
