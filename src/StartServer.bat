@@ -1,5 +1,5 @@
 TITLE Server
-start rmiregistry
+::start rmiregistry
 javac server\*.java
 javac client\*.java
 jar cf ct414.jar server\*.class 

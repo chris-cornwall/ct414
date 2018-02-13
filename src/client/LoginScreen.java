@@ -10,7 +10,7 @@ import server.ExamServer;
 // A Swing GUI application inherits the top-level container javax.swing.JFrame
 public class LoginScreen extends JFrame {
    private JTextField user, pass;
-   private JButton submit;
+   private JButton submit ;
    private boolean isVerified = false;
    
    // Constructor to setup the GUI components and event handlers
@@ -35,15 +35,17 @@ public class LoginScreen extends JFrame {
       submit.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent evt) {
-        	  	String userInfo = user.getText();
+        	  	String userInfoString = user.getText();
         	  	String passInfo = pass.getText();
+        	  	int userInfo = Integer.parseInt(userInfoString);
+        	  	
   
         	  	verifyUser(userInfo, passInfo);
         	  	if(isVerified == true){
         	  		SwingUtilities.invokeLater(new Runnable() {
         	  			@Override
         	  	         public void run() {
-	        	  		new assesmentSummary(userInfo);
+	        	  		new assesmentSummary(userInfoString);
         	  			}
         	  		});
 	        	  		cp.setVisible(false);
@@ -61,21 +63,22 @@ public class LoginScreen extends JFrame {
       setVisible(true);   // "super" Frame shows
    }
    
-   public void verifyUser(String user, String pass){
+   public void verifyUser(int user, String pass){
 	   
 	   
        try {
            String name ="ExamServer";
            Registry registry = LocateRegistry.getRegistry(1099);
            ExamServer server = (ExamServer) registry.lookup(name);
-          // int test = server.login(12, "string");
+           int test = server.login(user, pass);
           // System.out.println(test);
+           if (test == 0)
+        	   isVerified = true;
        } catch (Exception e) {
            System.err.println("GetAssessment exception:");
            e.printStackTrace();
 	   //connect to server and verify use
        }
-       isVerified = true;
        
    }
  
