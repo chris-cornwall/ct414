@@ -1,3 +1,0 @@
-grant codeBase "file:///C:/Users/cornwall/Desktop/ct414/src/ct414.jar" {
-    permission java.security.AllPermission;
-};
