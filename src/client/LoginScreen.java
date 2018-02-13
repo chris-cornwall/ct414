@@ -45,11 +45,12 @@ public class LoginScreen extends JFrame {
         	  		SwingUtilities.invokeLater(new Runnable() {
         	  			@Override
         	  	         public void run() {
-	        	  		new assesmentSummary(userInfoString);
-        	  			}
+        	  				new assesmentSummary(userInfoString);
+        	  			 }
         	  		});
 	        	  		cp.setVisible(false);
 	        	  		dispose();
+	        	  		isVerified = false;
         	  		
         	  	}
         	  
@@ -83,17 +84,5 @@ public class LoginScreen extends JFrame {
    }
  
    // The entry main() method
-   public static void main(String[] args) {
-	   
-	   if (System.getSecurityManager() == null) {
-           System.setSecurityManager(new SecurityManager());
-       }
-      // Run the GUI construction in the Event-Dispatching thread for thread-safety
-      SwingUtilities.invokeLater(new Runnable() {
-         @Override
-         public void run() {
-            new LoginScreen(); // Let the constructor do the job
-         }
-      });
-   }
+   
 }

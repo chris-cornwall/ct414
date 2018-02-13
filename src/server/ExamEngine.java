@@ -11,8 +11,7 @@ import server.Student;
 
 public class ExamEngine implements ExamServer {
 	
-	
-	public static List<Student> students = new ArrayList<Student>();
+
 
     // Constructor is required
     public ExamEngine() {
@@ -24,21 +23,40 @@ public class ExamEngine implements ExamServer {
     public int login(int studentid, String password) throws 
                 UnauthorizedAccess, RemoteException {
     	
-    	Student s1 = new Student(1, "pass1");
-		Student s2 = new Student(2, "pass2");
-		Student s3 = new Student(3, "pass3");
-		students.add(s1);
+    	ArrayList<Student> students = new ArrayList();
+    	
+    	Student s1 = new Student(4, "pass1");
+    	students.add(s1);
+		Student s2 = new Student(5, "pass2");
 		students.add(s2);
+		Student s3 = new Student(6, "pass3");
 		students.add(s3);
 		
 		Student search = new Student(studentid, password);
 		
-		for (Student s : students)
-			if(s.equals(search))
+		for (Student s : students){
+			/*
+			System.out.println(s.getUserName());
+			System.out.println(s.getPassWord());
+			System.out.println(search.getUserName());
+			System.out.println(search.getPassWord());
+			*/
+			
+			if(s.getUserName() == search.getUserName() && s.getPassWord().equals(search.getPassWord()))
 				return 0;
 			else{
 				throw new UnauthorizedAccess("Wrong");
+				//return 1;
 			}
+		}
+		
+			/*
+			if(s.getUserName(s) == search.getUserName(search) && s.getPassWord(s) == search.getPassWord(search))
+				return 0;
+			else{
+				//throw new UnauthorizedAccess("Wrong");
+				return 1;
+			}*/
 			
 
 	// TBD: You need to implement this method!
