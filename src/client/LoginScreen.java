@@ -2,14 +2,16 @@ package client;
 
 import java.awt.*;       // Using layouts
 import java.awt.event.*; // Using AWT event classes and listener interfaces
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import javax.swing.*;    // Using Swing components and containers
-import server.ExamServer;
+
  
 // A Swing GUI application inherits the top-level container javax.swing.JFrame
 public class LoginScreen extends JFrame {
-   private JTextField user, pass;
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private JTextField user, pass;
    private JButton submit ;
    private boolean isVerified = false;
    
@@ -42,6 +44,14 @@ public class LoginScreen extends JFrame {
   
         	  	verifyUser(userInfo, passInfo);
         	  	if(isVerified == true){
+        	  		
+        	  		/*
+        	  		try {
+						ClientControl.setToken(ClientControl.server.login(userInfo,passInfo));
+					} catch (RemoteException | UnauthorizedAccess e) {
+						e.printStackTrace();
+					}
+        	  		*/
         	  		SwingUtilities.invokeLater(new Runnable() {
         	  			@Override
         	  	         public void run() {
@@ -68,11 +78,7 @@ public class LoginScreen extends JFrame {
 	   
 	   
        try {
-           String name ="ExamServer";
-           Registry registry = LocateRegistry.getRegistry(1099);
-           ExamServer server = (ExamServer) registry.lookup(name);
-           int test = server.login(user, pass);
-          // System.out.println(test);
+    	   int test = ClientControl.server.login(user, pass);
            if (test == 0)
         	   isVerified = true;
        } catch (Exception e) {
