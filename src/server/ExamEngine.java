@@ -34,10 +34,15 @@ public class ExamEngine implements ExamServer {
 		Student search = new Student(studentid, password);
 		
 		for (Student s : students)
-			if(s.equals(search))
-				return 0;
+			if(s.getUserName()== search.getUserName() && s.getPassword().equals(search.getPassword())){
+                            System.out.println("Student found!!");
+                            return 0;
+                            
+                        }    
+				
 			else{
-				throw new UnauthorizedAccess("Wrong");
+				return 1;
+                                
 			}
 			
 
