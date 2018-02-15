@@ -64,7 +64,7 @@ public class LoginScreen extends JFrame {
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            new assesmentSummary(userInfoString, assessList);
+                            new assesmentSummary(token,userID, assessList);
                         }
                     });
                     cp.setVisible(false);
