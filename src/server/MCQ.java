@@ -13,9 +13,18 @@ import java.util.Date;
  * @author cornwall
  */
 public class MCQ implements Question{
-    
-    private ArrayList<String> answers = new ArrayList<String>();
+    private ArrayList<String> answers = new ArrayList();
+    private String[] answerOptions;
+    private String questionDetail;
     private Date dueDate;
+    private int id;
+    
+    
+    public MCQ(int id, String details, String[] answerOptions){
+        this.id = id;
+        this.questionDetail = details;
+        this.answerOptions = answerOptions;  
+    }
     
     public boolean isAvailable(Date now){
         if(now.compareTo(dueDate) >= 0)        
@@ -24,27 +33,21 @@ public class MCQ implements Question{
             return true;
     }
 
-    public Date getDueDate() {
-        return dueDate;
-    }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
 
     @Override
     public int getQuestionNumber() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     @Override
     public String getQuestionDetail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return questionDetail;
     }
-
+    
     @Override
     public String[] getAnswerOptions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return answerOptions;
     }
 
     @Override

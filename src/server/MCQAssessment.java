@@ -13,14 +13,16 @@ import java.util.List;
  *
  * @author cornwall
  */
-public class Assessment1 implements Assessment {
+public class MCQAssessment implements Assessment {
     ArrayList<Question> questions = new ArrayList();
     ArrayList<String> courseCodes;
+    Date dueDate;
     
     
-    public Assessment1(ArrayList<Question> questions, ArrayList<String> courseCodes){
+    public MCQAssessment(ArrayList<Question> questions, ArrayList<String> courseCodes, Date dueDate){
         this.questions = questions;
         this.courseCodes= courseCodes;
+        this.dueDate = dueDate;
             
     }
 
@@ -38,10 +40,11 @@ public class Assessment1 implements Assessment {
         return "Assessment";
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
     @Override
     public Date getClosingDate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dueDate;
     }
 
     @Override

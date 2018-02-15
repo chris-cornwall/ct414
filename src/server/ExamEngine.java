@@ -27,58 +27,61 @@ public class ExamEngine implements ExamServer {
     }
     
     public void testSetup(){
-         //TODO: Change where we create student array
-        //Create Arrays of questions 
-        Question testQ = (Question) new MCQ();
-        ArrayList<Question> Q1 = new ArrayList(); 
-        ArrayList<Question> Q2 = new ArrayList();
-        ArrayList<Question> Q3 = new ArrayList();     
-        Q1.add(testQ);
-        Q2.add(testQ);
-        Q2.add(testQ);
-        
-        //Create Assessments using these questions
-        ArrayList<String> testCodes = new ArrayList();
-        testCodes.add("CT111");
-        testCodes.add("CT222");
-        testCodes.add("CT333");
-        
-        
-        //Each assessment has the same coursecodes for now... Will need to change
-        Assessment A1 = new Assessment1(Q1, testCodes);
-        Assessment A2 = new Assessment1(Q2, testCodes);
-        Assessment A3 = new Assessment1(Q3, testCodes);
-        
-        //Create ArrayLists of Assessments
-        ArrayList<Assessment> AL1 = new ArrayList();
-        AL1.add(A1);
-        AL1.add(A2);
-        AL1.add(A3);
-        ArrayList<Assessment> AL2 = new ArrayList();
-        AL2.add(A2);
-        ArrayList<Assessment> AL3 = new ArrayList();
-        AL3.add(A3);
-        
-        //ArrayList of Assessment summary.... Need to use for getAvailableSummary down below
-        ArrayList<String> summary = new ArrayList();
-        summary.add("Maths");
-        summary.add("English");
-        summary.add("drinking cans");
-        
-        //Create students, assign id, password and assessments
-        Student s1 = new Student(1, "pass1");
-        s1.setAssessments(AL1);
-        s1.setSummary(summary);
-        students.add(s1);
-        Student s2 = new Student(2, "pass2");
-        s2.setAssessments(AL2);
-        students.add(s2);
-        Student s3 = new Student(3, "pass3");
-        s3.setAssessments(AL3);
-        students.add(s3);
-        
-        System.out.println("Setup Complete!");
-        
+        TestDriver driver = new TestDriver();
+        students = driver.init();
+//         //TODO: Change where we create student array
+//        //Create Arrays of questions 
+//        String[] answerOptions = {"yellow", "blue", "orange"};
+//        Question testQ = (Question) new MCQ(1, "What is life?", answerOptions );
+//        ArrayList<Question> Q1 = new ArrayList(); 
+//        ArrayList<Question> Q2 = new ArrayList();
+//        ArrayList<Question> Q3 = new ArrayList();     
+//        Q1.add(testQ);
+//        Q2.add(testQ);
+//        Q2.add(testQ);
+//        
+//        //Create Assessments using these questions
+//        ArrayList<String> testCodes = new ArrayList();
+//        testCodes.add("CT111");
+//        testCodes.add("CT222");
+//        testCodes.add("CT333");
+//        
+//        
+//        //Each assessment has the same coursecodes for now... Will need to change
+//        Assessment A1 = new MCQAssessment(Q1, testCodes);
+//        Assessment A2 = new MCQAssessment(Q2, testCodes);
+//        Assessment A3 = new MCQAssessment(Q3, testCodes);
+//        
+//        //Create ArrayLists of Assessments
+//        ArrayList<Assessment> AL1 = new ArrayList();
+//        AL1.add(A1);
+//        AL1.add(A2);
+//        AL1.add(A3);
+//        ArrayList<Assessment> AL2 = new ArrayList();
+//        AL2.add(A2);
+//        ArrayList<Assessment> AL3 = new ArrayList();
+//        AL3.add(A3);
+//        
+//        //ArrayList of Assessment summary.... Need to use for getAvailableSummary down below
+//        ArrayList<String> summary = new ArrayList();
+//        summary.add("Maths");
+//        summary.add("English");
+//        summary.add("drinking cans");
+//        
+//        //Create students, assign id, password and assessments
+//        Student s1 = new Student(1, "pass1");
+//        s1.setAssessments(AL1);
+//        s1.setSummary(summary);
+//        students.add(s1);
+//        Student s2 = new Student(2, "pass2");
+//        s2.setAssessments(AL2);
+//        students.add(s2);
+//        Student s3 = new Student(3, "pass3");
+//        s3.setAssessments(AL3);
+//        students.add(s3);
+//        
+//        System.out.println("Setup Complete!");
+//        
     }
 
     // Implement the methods defined in the ExamServer interface...
