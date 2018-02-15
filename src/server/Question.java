@@ -19,6 +19,9 @@ public interface Question extends Serializable {
         // Answer a set of questions
         public void answerQuestions(ArrayList<String> answers);
         
+        //Select an Answer
+        public void selectAnswer(int optionNumber);
+        
         
        
 

@@ -13,7 +13,8 @@ import java.util.Date;
  * @author cornwall
  */
 public class MCQ implements Question{
-    private ArrayList<String> answers = new ArrayList();
+    private String answer;
+    private ArrayList<String> selectedAnswers = new ArrayList();
     private String[] answerOptions;
     private String questionDetail;
     private Date dueDate;
@@ -32,8 +33,11 @@ public class MCQ implements Question{
         else
             return true;
     }
-
-
+    
+    @Override
+    public void selectAnswer(int optionNumber){
+        answer = answerOptions[optionNumber];
+    }
 
     @Override
     public int getQuestionNumber() {
@@ -52,7 +56,8 @@ public class MCQ implements Question{
 
     @Override
     public void answerQuestions(ArrayList<String> answers) {
-        this.answers = answers;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 }

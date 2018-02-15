@@ -197,7 +197,7 @@ public class ExamEngine implements ExamServer {
     
     public void checkToken(int token){
         long now = System.currentTimeMillis();
-        if (now - start >= 10000) { //Timeout set to 10 secs for testing
+        if (now - start >= 86400000 ) { //Timeout set to 10 secs for testing
             System.out.println("Token has expired");
 
             for (Student s : loggedIn) {
