@@ -13,14 +13,16 @@ import java.util.List;
  *
  * @author cornwall
  */
-public class Assessment1 implements Assessment {
+public class MCQAssessment implements Assessment {
     ArrayList<Question> questions = new ArrayList();
     ArrayList<String> courseCodes;
+    Date dueDate;
     
     
-    public Assessment1(ArrayList<Question> questions, ArrayList<String> courseCodes){
+    public MCQAssessment(ArrayList<Question> questions, ArrayList<String> courseCodes, Date dueDate){
         this.questions = questions;
         this.courseCodes= courseCodes;
+        this.dueDate = dueDate;
             
     }
 
@@ -38,25 +40,28 @@ public class Assessment1 implements Assessment {
         return "Assessment";
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
     @Override
     public Date getClosingDate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dueDate;
     }
 
     @Override
-    public List<Question> getQuestions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Question> getQuestions() {
+        return questions;
     }
 
     @Override
     public Question getQuestion(int questionNumber) throws InvalidQuestionNumber {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Question q = findQuestion(questionNumber);
+       return q;
     }
 
     @Override
     public void selectAnswer(int questionNumber, int optionNumber) throws InvalidQuestionNumber, InvalidOptionNumber {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Question q = findQuestion(questionNumber);
+        q.selectAnswer(optionNumber);
     }
 
     @Override
@@ -74,4 +79,12 @@ public class Assessment1 implements Assessment {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Question findQuestion(int questionNumber) throws InvalidQuestionNumber{
+        for (Question q : questions){
+           if (q.getQuestionNumber() == questionNumber)
+               return q;
+       }
+       
+        throw new InvalidQuestionNumber();
+    }
 }
