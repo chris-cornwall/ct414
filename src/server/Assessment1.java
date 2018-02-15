@@ -15,11 +15,21 @@ import java.util.List;
  */
 public class Assessment1 implements Assessment {
     ArrayList<Question> questions = new ArrayList();
+    ArrayList<String> courseCodes;
     
     
-    public Assessment1(ArrayList<Question> questions){
+    public Assessment1(ArrayList<Question> questions, ArrayList<String> courseCodes){
         this.questions = questions;
+        this.courseCodes= courseCodes;
             
+    }
+
+    public void setCourseCodes(ArrayList<String> courseCodes) {
+        this.courseCodes = courseCodes;
+    }
+
+    public ArrayList<String> getCourseCodes() {
+        return courseCodes;
     }
 
     @Override
@@ -56,6 +66,11 @@ public class Assessment1 implements Assessment {
 
     @Override
     public int getAssociatedID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setCourseCodes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

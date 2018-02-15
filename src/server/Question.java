@@ -3,6 +3,7 @@
 package server;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public interface Question extends Serializable {
 
@@ -14,5 +15,11 @@ public interface Question extends Serializable {
 
 	// Return the possible answers to select from
 	public String[] getAnswerOptions();
+        
+        // Answer a set of questions
+        public void answerQuestions(ArrayList<String> answers);
+        
+        
+       
 
 }
