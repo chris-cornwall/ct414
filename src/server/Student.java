@@ -8,6 +8,7 @@ public class Student {
     private String password;
     private ArrayList<Assessment> assessments = new ArrayList<Assessment>();
     private ArrayList<String> assessSummary = new ArrayList<String>();
+    private ArrayList<Assessment> completed = new ArrayList<Assessment>();
 
     Student(int user, String pass) {
 
@@ -47,6 +48,14 @@ public class Student {
 
     public void setSummary(ArrayList<String> assessSummary) {
         this.assessSummary = assessSummary;
+    }
+    
+    public void complete(Assessment assessment){
+        completed.add(assessment);
+    }
+    
+    public ArrayList<Assessment> getCompleted(){
+        return completed;
     }
 
 }

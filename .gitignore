@@ -13,3 +13,4 @@
 #Batch scripts
 *.bat
 
+/build/
