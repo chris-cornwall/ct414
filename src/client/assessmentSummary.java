@@ -40,14 +40,14 @@ public class assessmentSummary extends JFrame{
 	    asses1.addActionListener(new ActionListener() {
 	          @Override
 	          public void actionPerformed(ActionEvent evt) {
-	        	  System.out.println("1");
+
 	        	  
 	        	  //Connect to sever to get assignment and pass it to assignment page 
 	        	  
 	        	 
 	        	  
 	        	  try {
-					assignment = ClientControl.server.getAssessment(token, userInfo, "test");
+					assignment = ClientControl.server.getAssessment(token, userInfo, "CT111");
 	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -72,17 +72,28 @@ public class assessmentSummary extends JFrame{
 	    asses2.addActionListener(new ActionListener() {
 	          @Override
 	          public void actionPerformed(ActionEvent evt) {
-	        	  System.out.println("2");
+
 	        	  
-	        	//connect to sever to get assignment
+	        	  //Connect to sever to get assignment and pass it to assignment page 
+	        	  
+	        	 
+	        	  
+	        	  try {
+					assignment = ClientControl.server.getAssessment(token, userInfo, "CT111");
+	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+	        	  }
+	        	  
 	        	  
 	        	  SwingUtilities.invokeLater(new Runnable() {
-	      	  			@Override
-	      	  	         public void run() {
-		        	  		//new radioOptionAssignment(2, s1);
-	      	  			}
-	      	  	  });
-	        	 
+    	  			@Override
+    	  	         public void run() {
+	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
+    	  				new radioOptionAssignment(assignment,userInfo);
+    	  			}
+    	  		  });
+	        	  
 	          }
 	    });
 	    
@@ -93,18 +104,27 @@ public class assessmentSummary extends JFrame{
 	    asses3.addActionListener(new ActionListener() {
 	          @Override
 	          public void actionPerformed(ActionEvent evt) {
-	        	  System.out.println("3");
 	        	  
-	        	//connect to sever to get assignment
+	        	  //Connect to sever to get assignment and pass it to assignment page 
+	        	  
+	        	 
+	        	  
+	        	  try {
+					assignment = ClientControl.server.getAssessment(token, userInfo, "CT111");
+	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+	        	  }
+	        	  
 	        	  
 	        	  SwingUtilities.invokeLater(new Runnable() {
-	      	  			@Override
-	      	  	         public void run() {
-		        	  		new checkBoxAssignment(3, s1);
-	      	  			}
-	      	  	  });
+    	  			@Override
+    	  	         public void run() {
+	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
+    	  				new radioOptionAssignment(assignment,userInfo);
+    	  			}
+    	  		  });
 	        	  
-	        	
 	          }
 	    });
 	    
