@@ -23,6 +23,7 @@ public class LoginScreen extends JFrame {
     private boolean isVerified = false;
     private int userID, token;
     private ArrayList<String> assessList= new ArrayList();
+    
 
     // Constructor to setup the GUI components and event handlers
     public LoginScreen() {
@@ -91,7 +92,7 @@ public class LoginScreen extends JFrame {
              this.userID = userID;
              this.token = verified;
              assessList = (ArrayList<String>) ClientControl.server.getAvailableSummary(verified, userID);
-            
+        
             // Check if int is returned...
             if (verified == (int)verified) {
                 isVerified = true;

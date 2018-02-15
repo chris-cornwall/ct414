@@ -5,6 +5,7 @@ package server;
 import java.util.Date;
 import java.util.List;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public interface Assessment extends Serializable {
 
@@ -31,6 +32,10 @@ public interface Assessment extends Serializable {
 	// Return studentid associated with this assessment object
 	// This will be preset on the server before object is downloaded
 	public int getAssociatedID();
+        
+        public ArrayList<String> getCourseCodes();
+        
+        public void setCourseCodes();
 
 }
 
