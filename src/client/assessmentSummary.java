@@ -14,7 +14,7 @@ import server.NoMatchingAssessment;
 import server.Question;
 import server.UnauthorizedAccess;
 
-public class assesmentSummary extends JFrame{
+public class assessmentSummary extends JFrame{
     private ArrayList<String> assessments = new ArrayList();
     
     private Assessment assignment;
@@ -26,7 +26,7 @@ public class assesmentSummary extends JFrame{
 	
 	public ArrayList<String> assignmentQuestions;
 	
-	public assesmentSummary(int token, int userInfo, ArrayList<String> assessments) {
+	public assessmentSummary(int token, int userInfo, ArrayList<String> assessments) {
 		System.out.println("UserInfo = " + token);
                 this.assessments = assessments;
 		
