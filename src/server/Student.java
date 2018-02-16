@@ -52,6 +52,16 @@ public class Student {
     
     public void complete(Assessment assessment){
         completed.add(assessment);
+        
+        for (int i=0; i< completed.size(); i++){
+            System.out.println("************************************************************");
+        System.out.println("Student: " + getID() + " has completed assignment " + getSummary().get(i));
+        System.out.println("Their answers are: ");
+        for (int j=0; j<completed.get(i).getQuestions().size(); j++){
+           System.out.println(completed.get(i).getQuestions().get(j).getAnswer()); 
+        }
+        }
+       
     }
     
     public ArrayList<Assessment> getCompleted(){

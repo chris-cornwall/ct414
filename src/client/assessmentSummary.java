@@ -16,6 +16,7 @@ import server.UnauthorizedAccess;
 
 public class assessmentSummary extends JFrame{
     private ArrayList<String> assessments = new ArrayList();
+    private int token;
     
     private Assessment assignment;
     
@@ -26,9 +27,10 @@ public class assessmentSummary extends JFrame{
 	
 	public ArrayList<String> assignmentQuestions;
 	
-	public assessmentSummary(int token, int userInfo, ArrayList<String> assessments) {
+	public assessmentSummary(int token, int studentID, ArrayList<String> assessments) {
 		System.out.println("UserInfo = " + token);
                 this.assessments = assessments;
+                this.token = token;
 		
 		Container ncp = getContentPane();
 	    ncp.setLayout(new GridLayout(3, 2, 5, 5));  // The content-pane sets its layout
@@ -47,7 +49,7 @@ public class assessmentSummary extends JFrame{
 	        	 
 	        	  
 	        	  try {
-					assignment = ClientControl.server.getAssessment(token, userInfo, "CT111");
+					assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
 	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -57,8 +59,8 @@ public class assessmentSummary extends JFrame{
 	        	  SwingUtilities.invokeLater(new Runnable() {
       	  			@Override
       	  	         public void run() {
-	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
-      	  				new radioOptionAssignment(assignment,userInfo);
+	        	  		
+      	  				new radioOptionAssignment(assignment,studentID, token);
       	  			}
       	  		  });
 	        	  
@@ -79,7 +81,7 @@ public class assessmentSummary extends JFrame{
 	        	 
 	        	  
 	        	  try {
-					assignment = ClientControl.server.getAssessment(token, userInfo, "CT111");
+					assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
 	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -90,7 +92,7 @@ public class assessmentSummary extends JFrame{
     	  			@Override
     	  	         public void run() {
 	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
-    	  				new radioOptionAssignment(assignment,userInfo);
+    	  				new radioOptionAssignment(assignment,studentID, token);
     	  			}
     	  		  });
 	        	  
@@ -110,7 +112,7 @@ public class assessmentSummary extends JFrame{
 	        	 
 	        	  
 	        	  try {
-					assignment = ClientControl.server.getAssessment(token, userInfo, "CT111");
+					assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
 	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -121,7 +123,7 @@ public class assessmentSummary extends JFrame{
     	  			@Override
     	  	         public void run() {
 	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
-    	  				new radioOptionAssignment(assignment,userInfo);
+    	  				new radioOptionAssignment(assignment, studentID, token);
     	  			}
     	  		  });
 	        	  

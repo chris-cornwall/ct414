@@ -22,6 +22,9 @@ public interface Question extends Serializable {
         //Select an Answer
         public void selectAnswer(int optionNumber);
         
+        // Just for testing... Delete after
+        public String getAnswer();
+        
         
        
 

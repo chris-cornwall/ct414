@@ -25,139 +25,71 @@ public class ExamEngine implements ExamServer {
     public ExamEngine() {        
         super();       
     }
-    
+    // Run testDriver to populate questions, assignments and students
     public void testSetup(){
         TestDriver driver = new TestDriver();
-        students = driver.init();
-//         //TODO: Change where we create student array
-//        //Create Arrays of questions 
-//        String[] answerOptions = {"yellow", "blue", "orange"};
-//        Question testQ = (Question) new MCQ(1, "What is life?", answerOptions );
-//        ArrayList<Question> Q1 = new ArrayList(); 
-//        ArrayList<Question> Q2 = new ArrayList();
-//        ArrayList<Question> Q3 = new ArrayList();     
-//        Q1.add(testQ);
-//        Q2.add(testQ);
-//        Q2.add(testQ);
-//        
-//        //Create Assessments using these questions
-//        ArrayList<String> testCodes = new ArrayList();
-//        testCodes.add("CT111");
-//        testCodes.add("CT222");
-//        testCodes.add("CT333");
-//        
-//        
-//        //Each assessment has the same coursecodes for now... Will need to change
-//        Assessment A1 = new MCQAssessment(Q1, testCodes);
-//        Assessment A2 = new MCQAssessment(Q2, testCodes);
-//        Assessment A3 = new MCQAssessment(Q3, testCodes);
-//        
-//        //Create ArrayLists of Assessments
-//        ArrayList<Assessment> AL1 = new ArrayList();
-//        AL1.add(A1);
-//        AL1.add(A2);
-//        AL1.add(A3);
-//        ArrayList<Assessment> AL2 = new ArrayList();
-//        AL2.add(A2);
-//        ArrayList<Assessment> AL3 = new ArrayList();
-//        AL3.add(A3);
-//        
-//        //ArrayList of Assessment summary.... Need to use for getAvailableSummary down below
-//        ArrayList<String> summary = new ArrayList();
-//        summary.add("Maths");
-//        summary.add("English");
-//        summary.add("drinking cans");
-//        
-//        //Create students, assign id, password and assessments
-//        Student s1 = new Student(1, "pass1");
-//        s1.setAssessments(AL1);
-//        s1.setSummary(summary);
-//        students.add(s1);
-//        Student s2 = new Student(2, "pass2");
-//        s2.setAssessments(AL2);
-//        students.add(s2);
-//        Student s3 = new Student(3, "pass3");
-//        s3.setAssessments(AL3);
-//        students.add(s3);
-//        
-//        System.out.println("Setup Complete!");
-//        
+        students = driver.init();      
     }
 
-    // Implement the methods defined in the ExamServer interface...
-    // Return an access token that allows access to the server for some time period
+
+    // Return an access token which authenticates the user and allows access to the server for some time period
     public int login(int studentid, String password) throws
             UnauthorizedAccess, RemoteException {
         testSetup();
         Student search = new Student(studentid, password);
-
 
         for (Student s : students) {
 
             if (s.getID() == search.getID() && s.getPassWord().equals(search.getPassWord())) {
                 int token = createToken();
                 s.setToken(token);
-                start = System.currentTimeMillis();
-                System.out.println("START = " + start);
-                loggedIn.add(s);
+                start = System.currentTimeMillis(); // Keeps track of when token was created
+                loggedIn.add(s); // Keeps track of students who are currently logged in
                 System.out.println("ID = " + s.getID()+ " Token = " + s.getToken());
-                 // Can delete try and catch... Just testing
-        try {
-            System.out.println("Trying getAssesment... \n");
-            getAssessment(token, studentid, "CT111");
-        } catch (NoMatchingAssessment ex) {
-            Logger.getLogger(ExamEngine.class.getName()).log(Level.SEVERE, null, ex);
-        }
                 return token;
             } else {
                 throw new UnauthorizedAccess("Incorrect User ID or Password");
-
             }
         }
-        
-       
-        // TBD: You need to implement this method!
-        // For the moment method just returns an empty or null value to allow it to compile
         return 0;
     }
 
-	// Return a summary list of Assessments currently available for this studentid
+    // Return a summary list of Assessments currently available for this studentid
+    @Override
     public ArrayList<String> getAvailableSummary(int token, int studentid) throws
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
-        checkToken(token);
+        checkToken(token); //Check that token is still valid
         Student s = findStudent(token, studentid);
         return s.getSummary();
-
     }
 
     // Return an Assessment object associated with a particular course code
     // Need to implement proper error handling
+    @Override
     public Assessment getAssessment(int token, int studentid, String courseCode) throws
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
         checkToken(token);
         Student student = findStudent(token, studentid);
-        boolean codeFound = false;
            
         for (Assessment a: student.getAssessments()){
             for (String s: a.getCourseCodes()){
-                if (s.equals(courseCode)){
-                    codeFound = true;
+                if (s.equals(courseCode))
                     return a;
-                }
             }
         }
         
-        if (!codeFound)
-            System.err.println("No assesment found for given course code");
-        return null;
+        throw new NoMatchingAssessment("Cannot find any matching assessments for course code: " + courseCode);
+       
     }
 
     // Submit a completed assessment
-    public void submitAssessment(int token, int studentid, Assessment completed) throws 
+    public String submitAssessment(int token, int studentid, Assessment completed) throws 
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
         checkToken(token);
         Student student = findStudent(token, studentid);
         student.complete(completed);
+        
+        return "Assignment submitted successfully";
     }
     
     // Keep creating random tokens if token already exists
@@ -184,28 +116,28 @@ public class ExamEngine implements ExamServer {
         student.setToken(token);
     }
 
-    public Student findStudent(int token, int studentID){
+    public Student findStudent(int token, int studentID) throws UnauthorizedAccess{
          for (Student s: loggedIn){
             if (s.getID() == studentID && s.getToken() == token)
                 return s; 
             else
-                System.err.println("Can't find this student");     
+                throw new UnauthorizedAccess("Unauthorized Access: Student with ID: " + studentID + " is not logged in.");     
         }
           return null;
         
     }
     
-    public void checkToken(int token){
+    public void checkToken(int token) throws 
+                UnauthorizedAccess{
         long now = System.currentTimeMillis();
         if (now - start >= 86400000 ) { //Timeout set to 10 secs for testing
-            System.out.println("Token has expired");
-
             for (Student s : loggedIn) {
                 if (s.getToken() == token) {
                     loggedIn.remove(s);
                     loggedOut.add(s);
                 }
             }
+            throw new UnauthorizedAccess("Session has expired. Please log in again.");
         }
     }
     public static void main(String[] args) {

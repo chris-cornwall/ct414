@@ -45,8 +45,8 @@ public class TestDriver {
         questionSet2.add(question2);
         questionSet2.add(question3);
         
-        questionSet1.add(question1);
-        questionSet2.add(question2);
+        questionSet3.add(question1);
+        questionSet3.add(question2);
         questionSet3.add(question3);
         
         

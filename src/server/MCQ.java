@@ -15,7 +15,7 @@ import java.util.Date;
 public class MCQ implements Question{
     private String answer;
     private ArrayList<String> selectedAnswers = new ArrayList();
-    private String[] answerOptions;
+    private String[] answerOptions = new String[10];
     private String questionDetail;
     private Date dueDate;
     private int id;
@@ -32,6 +32,10 @@ public class MCQ implements Question{
             return false;
         else
             return true;
+    }
+    
+    public String getAnswer(){
+        return answer;
     }
     
     @Override
