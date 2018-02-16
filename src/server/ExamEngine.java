@@ -70,28 +70,26 @@ public class ExamEngine implements ExamServer {
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
         checkToken(token);
         Student student = findStudent(token, studentid);
-        boolean codeFound = false;
            
         for (Assessment a: student.getAssessments()){
             for (String s: a.getCourseCodes()){
-                if (s.equals(courseCode)){
-                    codeFound = true;
+                if (s.equals(courseCode))
                     return a;
-                }
             }
         }
         
-        if (!codeFound)
-            throw new NoMatchingAssessment("Cannot find any matching assessments for course code: " + courseCode);
-        return null;
+        throw new NoMatchingAssessment("Cannot find any matching assessments for course code: " + courseCode);
+       
     }
 
     // Submit a completed assessment
-    public void submitAssessment(int token, int studentid, Assessment completed) throws 
+    public String submitAssessment(int token, int studentid, Assessment completed) throws 
                 UnauthorizedAccess, NoMatchingAssessment, RemoteException {
         checkToken(token);
         Student student = findStudent(token, studentid);
         student.complete(completed);
+        
+        return "Assignment submitted successfully";
     }
     
     // Keep creating random tokens if token already exists

@@ -2,10 +2,12 @@ package client;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
 import server.ExamServer;
+
 
 public class ClientControl {
 	
@@ -19,6 +21,8 @@ public class ClientControl {
 	public static void setToken(int newToken){
 		token = newToken;
 	}
+        
+      
 	
 	public static void main(String[] args) {
 		   

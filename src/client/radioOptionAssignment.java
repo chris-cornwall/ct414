@@ -7,6 +7,7 @@ import server.MCQ;
 import server.MCQAssessment;
 
 import com.sun.corba.se.impl.ior.NewObjectKeyTemplateBase;
+import java.rmi.RemoteException;
 
 import server.Assessment;
 import server.ExamEngine;
@@ -18,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.NoMatchingAssessment;
+import server.UnauthorizedAccess;
 
 public class radioOptionAssignment extends JFrame {
 	
@@ -27,7 +32,7 @@ public class radioOptionAssignment extends JFrame {
 	public ButtonGroup group;
 	public JButton submitAnswers;
 	public int twos = 0 ,threes =0,fours = 0;
-	public Question newQuestion; 
+	//public Question newQuestion; 
 	public Assessment assessment;
 	
 	
@@ -38,14 +43,14 @@ public class radioOptionAssignment extends JFrame {
 	private ArrayList<Integer> l= new ArrayList<Integer>();
 	private ArrayList<ButtonGroup> groups = new ArrayList<ButtonGroup>();
 	
-	//public Assesment(int i, List<String> questionList) {
-	//public radioOptionAssignment(ArrayList<String> assignmentQuestions, int userInfo) {
-	public radioOptionAssignment(Assessment assignment, int userInfo){
+	
+	public radioOptionAssignment(Assessment assignment, int studentID, int token){
 	
 		
 	assessment = assignment;
 	
 	questions = assessment.getQuestions();
+        int numQuestions = assessment.getQuestions().size() - 1;
 	
 	System.out.println("num questions: "+assessment.getQuestions().size());
 	
@@ -174,22 +179,44 @@ public class radioOptionAssignment extends JFrame {
       		
         			x = groups.get(i).getSelection().getActionCommand(); // reads in the ActionCommand for the button selected in int form for each question.
         		
-        			System.out.println(i+"    "+x);
-        			
-//I couldnt figure this out, sorry!!!        			//MCQAssessment.selectAnswer(i, Integer.parseInt(x)); //
-        			
-        			
-        			
-        			
-        		//}
+        			//System.out.println(i+"    "+x);
+                                int selected = Integer.parseInt(x);
+                                System.out.println("Question " + i+1);
+                                System.out.println("X = " + x);
+                                questions.get(i).selectAnswer(selected);
+                                System.out.println("Selected Answer: " + questions.get(i).getAnswer());
+                                
+                    try {
+                        System.out.println("CLIENT: " + i+1);
+                        assessment.selectAnswer(i+1, selected);
+                    } catch (InvalidQuestionNumber ex) {
+                        Logger.getLogger(radioOptionAssignment.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InvalidOptionNumber ex) {
+                        Logger.getLogger(radioOptionAssignment.class.getName()).log(Level.SEVERE, null, ex);
+                    }
         		
         	}
+                
+            try {
+               String message =  ClientControl.server.submitAssessment(token, studentID,assessment);
+               JOptionPane.showMessageDialog(null, message, "Submission Summary", 1);
+            } catch (UnauthorizedAccess ex) {
+                Logger.getLogger(radioOptionAssignment.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoMatchingAssessment ex) {
+                Logger.getLogger(radioOptionAssignment.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (RemoteException ex) {
+                Logger.getLogger(radioOptionAssignment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+                
         }
         
     });
+    
+    
 	
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Exit program if close-window button clicked
-    setTitle("Assesment for "+ userInfo +":"); // "super" Frame sets title
+    setTitle("Assesment for "+ studentID +":"); // "super" Frame sets title
     setSize(900, 300);  // "super" Frame sets initial size
     setLocationRelativeTo(null);
     setVisible(true);

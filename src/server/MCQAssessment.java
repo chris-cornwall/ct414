@@ -81,7 +81,9 @@ public class MCQAssessment implements Assessment {
     
     public Question findQuestion(int questionNumber) throws InvalidQuestionNumber{
         for (Question q : questions){
-           if (q.getQuestionNumber() == questionNumber)
+            System.out.println("Server Question No: " + questionNumber);
+           if (q.getQuestionNumber() == questionNumber+1)
+               System.out.println("Server found question no: " + questionNumber);
                return q;
        }
        
