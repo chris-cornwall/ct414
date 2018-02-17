@@ -200,6 +200,8 @@ public class radioOptionAssignment extends JFrame {
             try {
                String message =  ClientControl.server.submitAssessment(token, studentID,assessment);
                JOptionPane.showMessageDialog(null, message, "Submission Summary", 1);
+               dispose();
+               assessmentSummary.setAnswerScreenRunning(0);
             } catch (UnauthorizedAccess ex) {
                 Logger.getLogger(radioOptionAssignment.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NoMatchingAssessment ex) {
@@ -213,7 +215,15 @@ public class radioOptionAssignment extends JFrame {
         
     });
     
-    
+    WindowListener exitListener = new WindowAdapter() {
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+        	assessmentSummary.setAnswerScreenRunning(0);
+            
+        }
+    };
+    addWindowListener(exitListener);
 	
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Exit program if close-window button clicked
     setTitle("Assesment for "+ studentID +":"); // "super" Frame sets title

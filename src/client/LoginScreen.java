@@ -23,6 +23,7 @@ public class LoginScreen extends JFrame {
     private boolean isVerified = false;
     private int userID, token;
     private ArrayList<String> assessList= new ArrayList();
+    private int answerScreenRunning;
     
 
     // Constructor to setup the GUI components and event handlers

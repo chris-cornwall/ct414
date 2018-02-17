@@ -17,6 +17,7 @@ import server.UnauthorizedAccess;
 public class assessmentSummary extends JFrame{
     private ArrayList<String> assessments = new ArrayList();
     private int token;
+    private static int answerScreenRunning = 0;
     
     private Assessment assignment;
     
@@ -40,30 +41,31 @@ public class assessmentSummary extends JFrame{
 	    ncp.add(asses1);
 	    
 	    asses1.addActionListener(new ActionListener() {
-	          @Override
+	          
+	    	 @Override
 	          public void actionPerformed(ActionEvent evt) {
 
-	        	  
+	        	  if(answerScreenRunning == 0){
 	        	  //Connect to sever to get assignment and pass it to assignment page 
-	        	  
-	        	 
-	        	  
-	        	  try {
-					assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
-	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		        	  try {
+						assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
+		        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+		        	  }
+		        	  
+		        	  
+		        	  SwingUtilities.invokeLater(new Runnable() {
+	      	  			@Override
+	      	  	         public void run() {
+		        	  		answerScreenRunning = 1;
+	      	  				new radioOptionAssignment(assignment,studentID, token);
+	      	  			}
+	      	  		  });
+	    	  	   }
+	        	  else{
+	        		  JOptionPane.showMessageDialog(asses1, "Answer Screen Already In Use", "Error", 1);
 	        	  }
-	        	  
-	        	  
-	        	  SwingUtilities.invokeLater(new Runnable() {
-      	  			@Override
-      	  	         public void run() {
-	        	  		
-      	  				new radioOptionAssignment(assignment,studentID, token);
-      	  			}
-      	  		  });
-	        	  
 	          }
 	    });
 	    
@@ -72,30 +74,31 @@ public class assessmentSummary extends JFrame{
 	    ncp.add(asses2);
 	    
 	    asses2.addActionListener(new ActionListener() {
-	          @Override
+	          
+	    	 @Override
 	          public void actionPerformed(ActionEvent evt) {
 
-	        	  
+	        	  if(answerScreenRunning == 0){
 	        	  //Connect to sever to get assignment and pass it to assignment page 
-	        	  
-	        	 
-	        	  
-	        	  try {
-					assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
-	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		        	  try {
+						assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
+		        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+		        	  }
+		        	  
+		        	  
+		        	  SwingUtilities.invokeLater(new Runnable() {
+	      	  			@Override
+	      	  	         public void run() {
+		        	  		answerScreenRunning = 1;
+	      	  				new radioOptionAssignment(assignment,studentID, token);
+	      	  			}
+	      	  		  });
+	    	  	   }
+	        	  else{
+	        		  JOptionPane.showMessageDialog(asses1, "Answer Screen Already In Use", "Error", 1);
 	        	  }
-	        	  
-	        	  
-	        	  SwingUtilities.invokeLater(new Runnable() {
-    	  			@Override
-    	  	         public void run() {
-	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
-    	  				new radioOptionAssignment(assignment,studentID, token);
-    	  			}
-    	  		  });
-	        	  
 	          }
 	    });
 	    
@@ -104,29 +107,31 @@ public class assessmentSummary extends JFrame{
 	    ncp.add(asses3);
 	    
 	    asses3.addActionListener(new ActionListener() {
-	          @Override
+	          
+	    	 @Override
 	          public void actionPerformed(ActionEvent evt) {
-	        	  
+
+	        	  if(answerScreenRunning == 0){
 	        	  //Connect to sever to get assignment and pass it to assignment page 
-	        	  
-	        	 
-	        	  
-	        	  try {
-					assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
-	        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		        	  try {
+						assignment = ClientControl.server.getAssessment(token, studentID, "CT111");
+		        	  } catch (RemoteException | UnauthorizedAccess | NoMatchingAssessment e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+		        	  }
+		        	  
+		        	  
+		        	  SwingUtilities.invokeLater(new Runnable() {
+	      	  			@Override
+	      	  	         public void run() {
+		        	  		answerScreenRunning = 1;
+	      	  				new radioOptionAssignment(assignment,studentID, token);
+	      	  			}
+	      	  		  });
+	    	  	   }
+	        	  else{
+	        		  JOptionPane.showMessageDialog(asses1, "Answer Screen Already In Use", "Error", 1);
 	        	  }
-	        	  
-	        	  
-	        	  SwingUtilities.invokeLater(new Runnable() {
-    	  			@Override
-    	  	         public void run() {
-	        	  		//new radioOptionAssignment(assignmentQuestions,userInfo);
-    	  				new radioOptionAssignment(assignment, studentID, token);
-    	  			}
-    	  		  });
-	        	  
 	          }
 	    });
 	    
@@ -138,6 +143,10 @@ public class assessmentSummary extends JFrame{
 	    setSize(900, 300);  // "super" Frame sets initial size
 	    setLocationRelativeTo(null);
 	    setVisible(true); 
+	}
+	
+	public static void setAnswerScreenRunning(int a){
+		answerScreenRunning = a;
 	}
 	
 }
